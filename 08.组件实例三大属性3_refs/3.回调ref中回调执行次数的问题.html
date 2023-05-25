@@ -16,12 +16,29 @@
     <script type="text/babel">
 
         class Demo extends React.Component{
+
+            state = {isHot: false}
+
+            changeWeather = () => {
+                const {isHot} = this.state;
+                this.setState({isHot: !isHot})
+            }
+
+            saveInput= (c) => {
+                this.input1 = c;
+                console.log('@', c);
+            }
+
             render() {
+                const {isHot} = this.state;
                 return(
                     <div>
-                        <input ref={(c)=>{this.input1 = c}} type="text" placeholder="点击按钮提示数据" />&nbsp;
+                        <h2>今天天气很{isHot ? '炎热' : '凉爽'}</h2>
+                        {/*更新数据的时候会调用两次，内联函数*/}
+                        {/*<input ref={(c)=>{this.input1 = c;console.log('@',c);}} type="text" />&nbsp;*/}
+                        <input ref={this.saveInput} type="text" />
                         <button onClick={this.showData}>点我提示左侧的数据</button>&nbsp;
-                        <input ref={(c)=>{this.input2 = c}} onBlur={this.showData2} type="text" placeholder="失去焦点提示数据" />
+                        <button onClick={this.changeWeather}>点我切换天气</button>
                     </div>
                 )
             }
@@ -29,11 +46,6 @@
             showData = () => {
                 const {input1} = this;
                 alert(input1.value);
-            }
-
-            showData2 = () => {
-                const {input2} = this;
-                alert(input2.value);
             }
         }
 
