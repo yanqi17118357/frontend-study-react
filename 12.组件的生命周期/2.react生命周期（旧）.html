@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+
+        // 目前学习阶段为旧版生命周期，一些API已经废弃
+        // 这里只做父组件更改的生命周期探讨
+
+        class A extends React.Component{
+
+            state={carName:'奔驰'}
+
+            changeCar = () => {
+                if(this.state.carName === '奔驰'){
+                    this.setState({carName:'奥拓'})
+                } else {
+                    this.setState({carName:'奔驰'})
+                }
+                
+            }
+
+            render() {
+                return(
+                    <div>
+                        <div>我是A组件</div>
+                        <button onClick={this.changeCar}>点我换车</button>
+                        <B carName={this.state.carName}/>
+                    </div>
+                )
+            }
+            
+        }
+
+        class B extends React.Component{
+
+            componentWillReceiveProps() {
+                console.log('test---componentWillReceiveProps')
+            }
+
+            shouldComponentUpdate() {
+                console.log('test---shouldComponentUpdate')
+                return true
+            }
+
+            componentWillUpdate() {
+                console.log('test---componentWillUpdate')
+            }
+
+            componentDidUpdate() {
+                console.log('test---componentDidUpdate')
+            }
+
+            render() {
+                return(
+                    <div>我是B组件，目前的车子是：{this.props.carName}</div>
+                )
+            }
+        }
+
+        ReactDOM.render(<A />, document.getElementById('test'));
+
+    </script>
+</body>
+</html>
