@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+      // 创建组件
+      class Login extends React.Component {
+        state = {
+          username: "",
+          password: "",
+        };
+
+        // 不使用函数柯里化实现受控组件
+        saveData = (dataType, event) => {
+          this.setState({
+            [dataType]: event.target.value,
+          });
+        };
+
+        handleSubmit = event => {
+          event.preventDefault();
+          const { username, password } = this.state;
+          alert(`用户名是：${username}，密码是：${password}`);
+        };
+
+        render() {
+          // render中的this代表实例
+          // onChange={saveUsername} 数据改变回调
+          // 受控组件的好处就是可以省略ref
+          // 由于onChange中接收一个函数
+          // 使用箭头函数传递event，通过React维护的event来获取value
+          return (
+            <form autoComplete="off" onSubmit={this.handleSubmit}>
+              用户名：
+              <input
+                onChange={event => this.saveData("username", event)}
+                type="text"
+                name="username"
+              />
+              密码：
+              <input
+                onChange={event => this.saveData("password", event)}
+                type="password"
+                name="password"
+              />
+              <button>登录</button>
+            </form>
+          );
+        }
+      }
+
+      ReactDOM.render(<Login />, document.getElementById("test"));
+    </script>
+  </body>
+</html>
