@@ -16,26 +16,31 @@
         // 创建组件
         class Login extends React.Component{
 
+            // 初始化state
             state = {
                 username:'',
                 password:''
             }
 
+            // 将username放入state中
             saveUsername = (event) => {
                 this.setState({
                     username: event.target.value
                 })
             }
 
+            // 将password放入state中
             savePassword = (event) => {
                 this.setState({
                     password: event.target.value
                 })
             }
 
+            // 从state中取出数据进行操作
             handleSubmit = (event) => {
                 event.preventDefault()
-                alert(`用户名是：${this.username.value}，密码是：${this.password.value}`)
+                const {username, password} = this.state
+                alert(`用户名是：${username}，密码是：${password}`)
             }
             
             render() {
