@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './index.css'
+
 export default class Item extends Component {
 
 	state = {mouse:false}
@@ -18,6 +19,15 @@ export default class Item extends Component {
 			}
 	}
 
+	// 实现删除按钮的功能
+	handleBtn = (id) => {
+		return () => {
+			if(window.confirm('你确定删除吗？')){
+				this.props.deleteTodo(id)
+			}
+		}
+	}
+
 	render() {
 		const {id, name, done} = this.props
 		const {mouse} = this.state
@@ -26,10 +36,10 @@ export default class Item extends Component {
 			<div>
 				<li style={{backgroundColor: mouse ? '#ddd' : 'white'}} onMouseLeave={this.handleMouse(false)} onMouseEnter={this.handleMouse(true)}>
 					<label>
-						<input type='checkbox' defaultChecked={done} onChange={this.handleCheck(id)}/>
+						<input type='checkbox' checked={done} onChange={this.handleCheck(id)} />
 						<span>{name}</span>
 					</label>
-					<button className='btn btn-danger' style={{display: mouse? 'block' : 'none'}}>删除</button>
+					<button onClick={this.handleBtn(id)} className='btn btn-danger' style={{display: mouse? 'block' : 'none'}}>删除</button>
 				</li>
 			</div>
 		);

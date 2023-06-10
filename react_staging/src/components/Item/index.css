@@ -12,11 +12,12 @@ li label {
 	cursor: pointer;
 }
 
-li label li input {
+li label input {
 	vertical-align: middle;
 	margin-right: 6px;
 	position: relative;
 	top: -1px;
+	cursor: pointer;
 }
 
 li button {
