@@ -11,12 +11,21 @@ export default class App extends Component {
 		{id:'003', name:'打代码', done: false}
 	]}
 
+	addTodo = (todoObj) => {
+		// 获取当前状态
+		const {todos} = this.state;
+		// 创建新的todos
+		const newTodos = [todoObj, ...todos];
+		// 更新状态
+		this.setState({todos:newTodos});
+	}
+
 	render() {
 		const { todos } = this.state;
 		return (
 			<div className='todo-container'>
 				<div className='todo-wrap'>
-					<Header />
+					<Header addTodo={this.addTodo} />
 					{/*注意：传递参数的属性名称不能是关键字，比如delete*/}
 					<List todos={todos}/>
 					<Footer />
