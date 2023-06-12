@@ -5,11 +5,22 @@ import './App.css'
 
 export default class App extends Component {
 
+	state = {
+		Git:[],
+		isFrist:true,
+		isLoad:false,
+		isError:''
+	}
+
+	updateAppState = (stateObj) => {
+		this.setState(stateObj)
+	}
+
 	render() {
 		return (
 			<div className='container'>
-				<Search />
-				<List />
+				<Search updateAppState={this.updateAppState} />
+				<List {...this.state}/>
 			</div>
 		)
 	}

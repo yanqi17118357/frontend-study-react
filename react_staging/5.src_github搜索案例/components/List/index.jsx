@@ -1,27 +1,9 @@
 import React, {Component} from 'react'
-import PubSub from 'pubsub-js'
 import './index.css'
 
 export default class List extends Component {
-	state = {
-		Git: [],
-		isFrist: true,
-		isLoad: false,
-		isError: '',
-	}
-
-	componentDidMount() {
-		this.subscription = PubSub.subscribe('Data', (_, data) => {
-			console.log('List组件收到消息了',data)
-		})
-	}
-
-	componentWillUnmount() {
-		PubSub.unsubscribe(this.subscription)
-	}
-
 	render() {
-		const {Git, isFrist, isLoad, isError} = this.state
+		const {Git, isFrist, isLoad, isError} = this.props
 		return (
 			<div className='row'>
 				{
