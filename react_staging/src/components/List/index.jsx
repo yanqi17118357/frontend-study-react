@@ -12,7 +12,7 @@ export default class List extends Component {
 
 	componentDidMount() {
 		this.subscription = PubSub.subscribe('Data', (_, data) => {
-			console.log('List组件收到消息了',data)
+			this.setState(data)
 		})
 	}
 

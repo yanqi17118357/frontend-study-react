@@ -1,32 +1,31 @@
 import React, {Component} from 'react'
 import PubSub from 'pubsub-js'
+import axios from 'axios'
 
 export default class Search extends Component {
 	search = () => {
-		console.log('Search组件发布消息了')
-		PubSub.publish('Data', {name: 'tom', age: 18})
 
-		// //const {value} = this.KeyValue;
-		// //连续解构赋值，拿到this下面的KeyValue中的value,并进行重命名为KeyWord
-		// const {
-		// 	KeyValue: {value: keyWord},
-		// } = this
+		//const {value} = this.KeyValue;
+		//连续解构赋值，拿到this下面的KeyValue中的value,并进行重命名为KeyWord
+		const {
+			KeyValue: {value: keyWord},
+		} = this
 
-		// //在搜索之前设置,搜索的开始，结束第一次展示
-		// this.props.updateAppState({isFrist: false, isLoad: true})
+		//在搜索之前设置,搜索的开始，结束第一次展示
+		PubSub.publish('Data',{isFrist: false, isLoad: true})
 
-		// //切记在配置代理了之后一定需要添加相应的路径
-		// axios.get(`http://localhost:3000/api1/search/users?q=${keyWord}`).then(
+		//切记在配置代理了之后一定需要添加相应的路径
+		axios.get(`http://localhost:3000/api1/search/users?q=${keyWord}`).then(
 
-		// 	success => {
-		// 		this.props.updateAppState({Git: success.data.items, isLoad: false})
+			success => {
+				PubSub.publish('Data',{Git: success.data.items, isLoad: false})
 
-		// 	},
-		// 	error => {
-		// 		this.props.updateAppState({isError: error.message, isLoad: false})
+			},
+			error => {
+				PubSub.publish('Data',{isError: error.message, isLoad: false})
 
-		// 	}
-		// )
+			}
+		)
 	}
 
 	render() {
